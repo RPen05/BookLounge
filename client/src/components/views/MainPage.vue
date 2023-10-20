@@ -16,9 +16,9 @@ export default {
         };
     },
     mounted() {
-        this.fetchBooks('discountBooks', 'http://localhost:3000/get-book');
-        this.fetchBooks('newBooks', 'http://localhost:3000/get-book');
-        this.fetchBooks('allBooks', 'http://localhost:3000/get-book');
+        this.fetchBooks('discountBooks', 'http://localhost:3000/get-books/all');
+        this.fetchBooks('newBooks', 'http://localhost:3000/get-books/all');
+        this.fetchBooks('allBooks', 'http://localhost:3000/get-books/all');
     },
     methods: {
         async fetchBooks(property, endpoint) {
