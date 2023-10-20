@@ -10,7 +10,16 @@ export class BookService {
     private readonly bookRepository: Repository<Book>,
   ) {}
 
-  async findAll(): Promise<Book[]> {
-    return this.bookRepository.find();
+  async findAll(page: number, limit: number): Promise<Book[]> {
+    const skip = (page - 1) * limit;
+    return this.bookRepository.find({ skip, take: limit });
+  }
+
+  async findDiscountBooks(page: number, limit: number): Promise<Book[]> {
+    return this.bookRepository.find({
+      where: { old_price: null },
+      skip: (page - 1) * limit, // Пропускаем записи для пагинации
+      take: limit, // Возвращаем только определенное количество записей
+    });
   }
 }

@@ -9,8 +9,8 @@ export class User {
   phone_number: string; // уникальный номер телефона
 
   @Column({ default: 0 })
-  loginAttempts: number; // TODO количество попыток входа
+  loginAttempts: number;
 
   @Column({ default: false })
-  isLocked: boolean; // TODO проверка блокировки входа на некоторое время
+  isLocked: boolean;
 }

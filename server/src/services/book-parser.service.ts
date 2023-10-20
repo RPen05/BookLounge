@@ -66,7 +66,6 @@ export class BookParserService {
             const book_id_text = book_id_item.attr('data-product-id');
             const book_id = parseInt(book_id_text, 10);
 
-            // TODO не у всех книг есть эти поля
             const size = '';
 
             const weight = null;
@@ -77,7 +76,6 @@ export class BookParserService {
 
             const pub_year = null;
 
-            // TODO найти данные на странице
             const pages = null;
             const circulation = '';
 
