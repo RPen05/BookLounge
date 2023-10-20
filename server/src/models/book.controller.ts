@@ -12,4 +12,4 @@ export class BookController {
   }
 }
 
-// TODO пагинация и лоадер
+// TODO Pagination and Loader
