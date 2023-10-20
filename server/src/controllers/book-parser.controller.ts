@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { BookParserService } from 'src/service/book-parser.service';
-import { Book } from './book.entity';
+import { BookParserService } from 'src/services/book-parser.service';
+import { Book } from '../models/book.entity';
 
 @Controller('books')
 export class ParseBookController {

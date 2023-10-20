@@ -7,11 +7,14 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
-import { JwtAuthService } from 'src/jwt/jwt.service';
+import { User } from '../models/user.entity';
+import { JwtAuthService } from 'src/services/jwt/jwt.service';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SendPhoneNumberDto } from 'src/api/phone-number.dto';
 
 // Создание контроллера для получения запросов для авторизации пользователя в системе
 @Controller('auth')
+@ApiTags('Authentification')
 export class AuthController {
   constructor(
     @InjectRepository(User)
@@ -23,6 +26,10 @@ export class AuthController {
 
   // Post запрос для получения номера телефона при авторизации и его сохранение для дальнейших действий
   @Post('phone')
+  @ApiOperation({
+    summary: 'Отправка номера телефона для получения кода подтверждения',
+  })
+  @ApiBody({ type: SendPhoneNumberDto })
   async sendPhoneNumber(@Body() requestBody, @Request() req) {
     const { phoneNumber } = requestBody;
 
@@ -31,10 +38,11 @@ export class AuthController {
     return { success: true };
   }
 
-  // TODO Swagger / Class Validator for DTO /
-
   // Post запрос для получения кода подтверждения и его сравнения с заглушкой через env файл
   @Post('verify-code')
+  @ApiOperation({
+    summary: 'Проверка кода подтверждения и выдача JWT-токена',
+  })
   async verifyConfirmationCode(@Body() requestBody, @Request() req) {
     const { code } = requestBody;
     const userPhoneNumber = req.session.phoneNumber;
