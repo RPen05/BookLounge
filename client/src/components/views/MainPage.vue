@@ -16,9 +16,18 @@ export default {
         };
     },
     mounted() {
-        this.fetchBooks('discountBooks', 'http://localhost:3000/get-books/all');
-        this.fetchBooks('newBooks', 'http://localhost:3000/get-books/all');
-        this.fetchBooks('allBooks', 'http://localhost:3000/get-books/all');
+        this.fetchBooks(
+            'discountBooks',
+            'http://localhost:3000/get-books/discount?page=1&limit=10'
+        );
+        this.fetchBooks(
+            'newBooks',
+            'http://localhost:3000/get-books/all?page=1&limit=10'
+        );
+        this.fetchBooks(
+            'allBooks',
+            'http://localhost:3000/get-books/all?page=1&limit=10'
+        );
     },
     methods: {
         async fetchBooks(property, endpoint) {
