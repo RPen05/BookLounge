@@ -29,10 +29,10 @@ export class BookParserService {
           async (index, element) => {
             const title = $(element).find('.product-title').text().trim();
 
-            const author = $(element)
-              .find('.product-author a span')
-              .text()
-              .trim();
+            const authorElement = $(element).find('.product-author a span');
+            const author = authorElement.length
+              ? authorElement.text().trim()
+              : 'Не указан';
 
             const image_cover = $(element)
               .find('.product-cover img')
@@ -41,13 +41,15 @@ export class BookParserService {
             const price_string = $(element)
               .find('.price-val span')
               .text()
-              .trim();
+              .trim()
+              .replace(/[^\d]/g, '');
             const price = parseInt(price_string, 10);
 
             const old_price_string = $(element)
               .find('.price-gray')
               .text()
-              .trim();
+              .trim()
+              .replace(/[^\d]/g, '');
             const old_price = parseInt(old_price_string, 10);
 
             const publisher = $(element)
@@ -163,6 +165,7 @@ export class BookParserService {
         await Promise.all(promises);
       }
     }
+    console.log('Parsing ended successfully');
     return books;
   }
 
@@ -213,14 +216,19 @@ export class BookParserService {
       const year_text = $('.publisher').text().match(/\d{4}/); // Используем регулярное выражение для поиска четырёхзначных чисел (годов)
       const pub_year_int = parseInt(year_text[0]);
 
-      book.isbn = isbn;
+      let pages_int;
+      const pages_element = $('.pages2');
+      if (pages_element.length > 0) {
+        const pages_string = pages_element.text().match(/\d+/);
+        pages_int = parseInt(pages_string[0], 10);
+      }
 
+      book.isbn = isbn;
       if (!isNaN(weightInt)) {
         book.weight = weightInt;
       } else {
         book.weight = null;
       }
-
       book.size = size;
       book.age_restriction = age_restriction;
       book.description = description;
@@ -229,6 +237,12 @@ export class BookParserService {
         book.pub_year = pub_year_int;
       } else {
         book.pub_year = null;
+      }
+      // TODO
+      if (!isNaN(pages_int) && pages_int && pages_int[0]) {
+        book.pages = pages_int;
+      } else {
+        book.pages = null;
       }
 
       await this.bookRepository.save(book);

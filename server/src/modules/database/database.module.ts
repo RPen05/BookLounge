@@ -10,6 +10,7 @@ import { Book } from 'src/models/book.entity';
 import { User } from 'src/models/user.entity';
 import { BookParserService } from 'src/services/book-parser.service';
 import { BookService } from 'src/services/book.service';
+import { ParserModule } from '../parser.module';
 
 // Настройка .env файла
 dotenv.config();
@@ -36,6 +37,8 @@ dotenv.config();
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '3d' }, // токен истекает через 3 дня
     }),
+
+    ParserModule,
   ],
   controllers: [AuthController, ParseBookController, BookController],
   exports: [TypeOrmModule],
