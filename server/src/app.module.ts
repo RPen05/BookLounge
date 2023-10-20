@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from './database/database.module';
-import { AuthController } from './models/auth.controller';
+import { DatabaseModule } from './modules/database/database.module';
+import { AuthController } from './controllers/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
-import { JwtAuthService } from './jwt/jwt.service';
+import { JwtAuthService } from './services/jwt/jwt.service';
 
 // Настройка .env файла
 dotenv.config();

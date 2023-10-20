@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
-import { JwtAuthService } from 'src/jwt/jwt.service';
-import { AuthController } from 'src/models/auth.controller';
-import { ParseBookController } from 'src/models/book-parser.controller';
-import { BookController } from 'src/models/book.controller';
+import { JwtAuthService } from 'src/services/jwt/jwt.service';
+import { AuthController } from 'src/controllers/auth.controller';
+import { ParseBookController } from 'src/controllers/book-parser.controller';
+import { BookController } from 'src/controllers/book.controller';
 import { Book } from 'src/models/book.entity';
 import { User } from 'src/models/user.entity';
-import { BookParserService } from 'src/service/book-parser.service';
-import { BookService } from 'src/service/book.service';
+import { BookParserService } from 'src/services/book-parser.service';
+import { BookService } from 'src/services/book.service';
 
 // Настройка .env файла
 dotenv.config();
