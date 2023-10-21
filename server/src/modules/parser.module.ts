@@ -1,21 +1,22 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as cron from 'node-cron';
-import { Book } from 'src/models/book.entity';
-import { BookParserService } from 'src/services/book-parser.service';
+import { BookDetails } from 'src/models/book-details.entity';
+import { Books } from 'src/models/books.entity';
+import { LabirintBookParserService } from 'src/services/labirint-parser.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Book])],
-  providers: [BookParserService],
+  imports: [TypeOrmModule.forFeature([Books, BookDetails])],
+  providers: [LabirintBookParserService],
 })
 export class ParserModule implements OnModuleInit {
-  constructor(private readonly bookParserService: BookParserService) {}
+  constructor(private readonly bookParserService: LabirintBookParserService) {}
 
   onModuleInit() {
-    this.bookParserService.parseBook();
+    this.bookParserService.parseLabirintBook();
 
     cron.schedule('0 0 * * *', () => {
-      this.bookParserService.parseBook();
+      this.bookParserService.parseLabirintBook();
     });
   }
 }
