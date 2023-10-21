@@ -1,13 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
-import { BookParserService } from 'src/services/book-parser.service';
-import { Book } from '../models/book.entity';
+import { LabirintBookParserService } from 'src/services/labirint-parser.service';
+import { Books } from '../models/books.entity';
 
 @Controller('books')
 export class ParseBookController {
-  constructor(private readonly bookParserService: BookParserService) {}
+  constructor(
+    private readonly labirintBookParserService: LabirintBookParserService,
+  ) {}
 
   @Get()
-  async findAll(): Promise<Book[]> {
-    return this.bookParserService.parseBook();
+  async findAll(): Promise<Books[]> {
+    return this.labirintBookParserService.parseLabirintBook();
   }
 }

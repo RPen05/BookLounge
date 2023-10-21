@@ -6,11 +6,12 @@ import { JwtAuthService } from 'src/services/jwt/jwt.service';
 import { AuthController } from 'src/controllers/auth.controller';
 import { ParseBookController } from 'src/controllers/book-parser.controller';
 import { BookController } from 'src/controllers/book.controller';
-import { Book } from 'src/models/book.entity';
 import { User } from 'src/models/user.entity';
-import { BookParserService } from 'src/services/book-parser.service';
+import { LabirintBookParserService } from 'src/services/labirint-parser.service';
 import { BookService } from 'src/services/book.service';
 import { ParserModule } from '../parser.module';
+import { Books } from 'src/models/books.entity';
+import { BookDetails } from 'src/models/book-details.entity';
 
 // Настройка .env файла
 dotenv.config();
@@ -25,12 +26,12 @@ dotenv.config();
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [User, Book],
+      entities: [User, Books, BookDetails],
       synchronize: true,
     }),
 
     // Подключение сущности User
-    TypeOrmModule.forFeature([User, Book]),
+    TypeOrmModule.forFeature([User, Books, BookDetails]),
 
     // Регистрация JWT-токена
     JwtModule.register({
@@ -42,6 +43,6 @@ dotenv.config();
   ],
   controllers: [AuthController, ParseBookController, BookController],
   exports: [TypeOrmModule],
-  providers: [JwtAuthService, BookParserService, BookService],
+  providers: [JwtAuthService, LabirintBookParserService, BookService],
 })
 export class DatabaseModule {}

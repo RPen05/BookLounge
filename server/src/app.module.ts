@@ -4,7 +4,6 @@ import { AuthController } from './controllers/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
 import { JwtAuthService } from './services/jwt/jwt.service';
-import { ParserModule } from './modules/parser.module';
 
 // Настройка .env файла
 dotenv.config();
