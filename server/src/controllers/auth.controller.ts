@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 import { User } from '../models/user.entity';
 import { JwtAuthService } from 'src/services/jwt/jwt.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { SendPhoneNumberDto } from 'src/api/phone-number.dto';
+import { SendPhoneNumberDto } from 'src/dto/phone-number.dto';
 
 // Создание контроллера для получения запросов для авторизации пользователя в системе
 @Controller('auth')

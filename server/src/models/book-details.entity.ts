@@ -1,8 +1,7 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  OneToOne,
+  JoinColumn, ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Books } from './books.entity';
@@ -66,7 +65,7 @@ export class BookDetails {
   @Column({ nullable: true })
   description: string;
 
-  @OneToOne(() => Books, (books) => books.details)
+  @ManyToOne(() => Books, (books) => books.details)
   @JoinColumn({ name: 'id_book' })
   books: Books;
 }
