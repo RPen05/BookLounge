@@ -51,6 +51,8 @@ export class LabirintBookParserService {
               .trim();
             const old_price_int = parseInt(old_priceElement, 10);
 
+            const source = 'Labirint';
+
             const existingBook = await this.bookRepository.findOne({
               where: { title },
             });
@@ -61,6 +63,7 @@ export class LabirintBookParserService {
               await this.bookRepository.save(newBook);
               const newBookDetails = new BookDetails();
               newBookDetails.id_book = newBook.id;
+              newBookDetails.source = source;
               if (!isNaN(price)) {
                 newBookDetails.price = price;
               } else {
@@ -83,7 +86,7 @@ export class LabirintBookParserService {
               existingBook.title = title;
               await this.bookRepository.save(existingBook);
               const newBookDetails = await this.bookDetailsRepository.findOne({
-                where: { id_book: existingBook.id },
+                where: { id_book: existingBook.id, source: source },
               });
               if (!isNaN(price)) {
                 newBookDetails.price = price;
@@ -182,7 +185,7 @@ export class LabirintBookParserService {
         const source = 'Labirint';
 
         const existingBookDetails = await this.bookDetailsRepository.findOne({
-          where: { id_book: bookId },
+          where: { id_book: bookId, source: source },
         });
 
         if (existingBookDetails) {
@@ -194,6 +197,7 @@ export class LabirintBookParserService {
           existingBookDetails.circulation = circulation; // Установите значение, если у вас есть информация о тираже
           existingBookDetails.weight = !isNaN(weightInt) ? weightInt : null;
           existingBookDetails.size = size;
+          existingBookDetails.isbn = isbn;
           existingBookDetails.age_restriction = age_restriction;
           existingBookDetails.description = description;
           existingBookDetails.genre = genre;

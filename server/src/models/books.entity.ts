@@ -4,8 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  JoinColumn, OneToMany,
 } from 'typeorm';
 import { BookDetails } from './book-details.entity';
 
@@ -23,7 +22,7 @@ export class Books {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToOne((type) => BookDetails, (details) => details.books)
+  @OneToMany(() => BookDetails, (details) => details.books)
   @JoinColumn()
   details: BookDetails;
 }

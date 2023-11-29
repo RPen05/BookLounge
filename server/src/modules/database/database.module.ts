@@ -9,9 +9,9 @@ import { BookController } from 'src/controllers/book.controller';
 import { User } from 'src/models/user.entity';
 import { LabirintBookParserService } from 'src/services/labirint-parser.service';
 import { BookService } from 'src/services/book.service';
-import { ParserModule } from '../parser.module';
 import { Books } from 'src/models/books.entity';
 import { BookDetails } from 'src/models/book-details.entity';
+import {ChitaiGorodParserService} from "../../services/chitai-gorod-parser.service";
 
 // Настройка .env файла
 dotenv.config();
@@ -38,11 +38,9 @@ dotenv.config();
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '3d' }, // токен истекает через 3 дня
     }),
-
-    ParserModule,
   ],
   controllers: [AuthController, ParseBookController, BookController],
   exports: [TypeOrmModule],
-  providers: [JwtAuthService, LabirintBookParserService, BookService],
+  providers: [JwtAuthService, BookService, LabirintBookParserService, ChitaiGorodParserService],
 })
 export class DatabaseModule {}
